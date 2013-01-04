@@ -7,10 +7,12 @@ from gdalconst import *
 import numpy
 
 from MonthlyMean import Mean
+from GroundSurfaceTemperature import GroundSurfaceTemperature, Hc, Ts_analysis
 
 """
 To run tests:
-  $ export PYTHONPATH=/home/axa/.qgis/python/plugins:/usr/share/qgis/python/plugins
+  $ cd ~/.qgis/python/plugins/sexante/permaclim
+  $ export PYTHONPATH=~/.qgis/python/plugins:/usr/share/qgis/python/plugins
   $ python tests.py
 
 """
@@ -55,6 +57,39 @@ class TestMonthlyMean(unittest.TestCase):
         with Mean(self.input_path, self.output_path, ) as mm:
             mm.compute([1,2])
             self.assertEqual(mm.mean[0][0], 1)
+            self.assertEqual(os.path.exists(self.output_path), True)
+
+class TestGroundSurfaceTemperature(unittest.TestCase):
+
+    def setUp(self):
+
+        self.snow_path = tempfile.mkstemp()[1]
+        prepare_input(self.snow_path, [(1, 0),])
+
+        self.temp_path = tempfile.mkstemp()[1]
+        prepare_input(self.temp_path, [(1, 1),])
+
+        self.output_path = tempfile.mkstemp()[1]
+
+    def test_Hc(self):
+        self.assertEqual(Hc(-1, 1, 1), 1)
+        self.assertEqual(Hc(1, 1, 1), Hc(-1, 1, 1))
+
+    def test_Ts(self):
+        self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
+        self.assertEqual(Ts_analysis(0, 0, 0,0,),  0)
+        self.assertEqual(Ts_analysis(0, 1, 0,0,),  1)
+
+    def test_Ts(self):
+        # to finish
+        with GroundSurfaceTemperature(
+                self.snow_path,
+                self.temp_path,
+                0.3,
+                0.83,
+                self.output_path, ) as gst:
+            gst.compute()
+            self.assertEqual(gst.data[0][0], 1)
             self.assertEqual(os.path.exists(self.output_path), True)
 
 if __name__ == '__main__':

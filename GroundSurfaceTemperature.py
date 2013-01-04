@@ -90,7 +90,6 @@ class GroundSurfaceTemperature:
         Ta_data = self.Ta.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
 
         data = Ts_ARRAY(Hn_data, Ta_data, self.K, self.Qs)
-        print data
 
         # remove invalid points
         mask = numpy.greater(Hn_data, -3.4e+38)
