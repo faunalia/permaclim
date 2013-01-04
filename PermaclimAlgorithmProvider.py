@@ -30,7 +30,7 @@ import os
 #
 from MonthlyMean import MonthlyMean
 from SnowDistributionBySlope import SnowDistributionBySlope
-
+from GroundSurfaceTemperature import GroundSurfaceTemperatureAlgorithm
 
 class PermaclimAlgorithmProvider(AlgorithmProvider):
 
@@ -39,6 +39,7 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
         self.alglist = [
             MonthlyMean(),
             SnowDistributionBySlope(),
+            GroundSurfaceTemperatureAlgorithm(),
         ]
 
     def initializeSettings(self):
