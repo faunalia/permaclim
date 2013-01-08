@@ -3,36 +3,29 @@ Introduction
 
   The package add the following algorithms to sexante:
 
-  - monthly mean: given a tiff with the weekly values (52 bands) returns
+  - Monthly mean: given a tiff with the weekly values (52 bands) returns
     a layer with the mean of specified month.
 
   - Snow height by slope: given the snow height and a slope layer returns
       a layer with the snow weighted with the SAF function.
 
-  - ...
+  - Ground surface temperature: given the snow heigth, air temperature,
+    Qs and K will return the ground surface temperature as in the article
+       "PERMACLIM: a model for the distribution of mountain permafrost, 
+          based on climatic observations"  by Mauro Guglielmin, Barbara Aldighieri, Bruno Testa
 
 
 Install
 -------
 
-  How to install the algorithms in sextante:
+  Permaclim is installed as standard qgis plugin. The algoritms will be
+  available in sextante. 
 
-  - extract the repository in <home>/.qgis/python/plugins/sextante:
+  - extract the repository in <home>/.qgis/python/plugins:
 
-        $ git clone <home>/.qgis/python/plugins/sextante
+        $ git clone git://github.com/faunalia/permaclim.git <home>/.qgis/python/plugins/
 
-  - add to <home>/.qgis/python/plugins/sextante/core/Sextante.py the following
-    lines:
-
-        from sextante.permaclim.PermaclimAlgorithmProvider import PermaclimAlgorithmProvider
-        ...
-
-        @staticmethod
-        def initialize():
-            #add the basic providers
-            ...
-            Sextante.addProvider(PermaclimAlgorithmProvider())
-            ...
+  - activate the plugin from the qgis interface
 
 Testing
 -------
@@ -40,5 +33,5 @@ Testing
   To run the unit tests:
 
         $ export PYTHONPATH=<home>/.qgis/python/plugins:/usr/share/qgis/python/plugins
-        $ cd <home>/.qgis/python/plugins/sextante/permaclim
+        $ cd <home>/.qgis/python/plugins/permaclim
         $ python tests.py
