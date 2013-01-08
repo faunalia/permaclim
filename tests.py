@@ -11,7 +11,7 @@ from GroundSurfaceTemperature import GroundSurfaceTemperature, Hc, Ts_analysis
 
 """
 To run tests:
-  $ cd ~/.qgis/python/plugins/sexante/permaclim
+  $ cd ~/.qgis/python/plugins/permaclim
   $ export PYTHONPATH=~/.qgis/python/plugins:/usr/share/qgis/python/plugins
   $ python tests.py
 
@@ -73,7 +73,7 @@ class TestGroundSurfaceTemperature(unittest.TestCase):
 
     def test_Hc(self):
         self.assertEqual(Hc(-1, 1, 1), 1)
-        self.assertEqual(Hc(1, 1, 1), Hc(-1, 1, 1))
+        self.assertRaises(Exception, Hc, (1, 1, 1))
 
     def test_Ts(self):
         self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
