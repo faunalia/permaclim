@@ -18,7 +18,7 @@ To run tests:
 """
 
 def prepare_input(path, bands):
-    # fill the bands with the specified values
+    # fill the bands with the specified values: (band_index, value)
 
     #the extent and shape of my array
     xmin,ymin,xmax,ymax=[0, 0, 9, 9]
@@ -34,10 +34,10 @@ def prepare_input(path, bands):
                     ncols,
                     nrows,
                     len(bands),
-                    gdal.GDT_Byte)
+                    gdal.GDT_Float32)
 
     for b,v in bands:
-        array = v*numpy.ones((10,10))
+        array = v*numpy.ones((10,10), dtype=numpy.float32)
         bandOut = dst.GetRasterBand(b)
         bandOut.SetNoDataValue(-99)
         bandOut.WriteArray(array, 0, 0)
@@ -47,50 +47,68 @@ def prepare_input(path, bands):
 class TestMonthlyMean(unittest.TestCase):
 
     def setUp(self):
-        self.input_path = tempfile.mkstemp()[1]
-        prepare_input(self.input_path, [(1, 0), (2, 2)])
+        self.input_path_1 = tempfile.mkstemp()[1]
+        prepare_input(self.input_path_1, [(1, 0), (2, 2)])
+
+        self.input_path_2 = tempfile.mkstemp()[1]
+        prepare_input(self.input_path_2, [(1, -1), (2, -5)])
 
         self.output_path = tempfile.mkstemp()[1]
 
     def test_average(self):
         #
-        with Mean(self.input_path, self.output_path, ) as mm:
-            mm.compute([1,2])
-            self.assertEqual(mm.mean[0][0], 1)
+        with Mean(self.input_path_1, self.output_path, ) as mm1:
+            mm1.compute([1,2])
+            self.assertEqual(mm1.mean[0][0], 1)
             self.assertEqual(os.path.exists(self.output_path), True)
 
-class TestGroundSurfaceTemperature(unittest.TestCase):
+            # stats
+            self.assertEqual(mm1.min, 1)
+            self.assertEqual(mm1.max, 1)
+            self.assertEqual(mm1.std, 0)
 
-    def setUp(self):
+        with Mean(self.input_path_2, self.output_path, ) as mm2:
+            mm2.compute([1,2])
+            self.assertEqual(mm2.mean[0][0], -3)
 
-        self.snow_path = tempfile.mkstemp()[1]
-        prepare_input(self.snow_path, [(1, 0),])
+            # stats
+            self.assertEqual(mm2.min, -3)
+            self.assertEqual(mm2.max, -3)
+            self.assertEqual(mm2.std, 0)
 
-        self.temp_path = tempfile.mkstemp()[1]
-        prepare_input(self.temp_path, [(1, 1),])
 
-        self.output_path = tempfile.mkstemp()[1]
+#class TestGroundSurfaceTemperature(unittest.TestCase):
 
-    def test_Hc(self):
-        self.assertEqual(Hc(-1, 1, 1), 1)
-        self.assertRaises(Exception, Hc, (1, 1, 1))
+    #def setUp(self):
 
-    def test_Ts(self):
-        self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
-        self.assertEqual(Ts_analysis(0, 0, 0,0,),  0)
-        self.assertEqual(Ts_analysis(0, 1, 0,0,),  1)
+        #self.snow_path = tempfile.mkstemp()[1]
+        #prepare_input(self.snow_path, [(1, 0),])
 
-    def test_Ts(self):
-        # to finish
-        with GroundSurfaceTemperature(
-                self.snow_path,
-                self.temp_path,
-                0.3,
-                0.83,
-                self.output_path, ) as gst:
-            gst.compute()
-            self.assertEqual(gst.data[0][0], 1)
-            self.assertEqual(os.path.exists(self.output_path), True)
+        #self.temp_path = tempfile.mkstemp()[1]
+        #prepare_input(self.temp_path, [(1, 1),])
+
+        #self.output_path = tempfile.mkstemp()[1]
+
+    #def test_Hc(self):
+        #self.assertEqual(Hc(-1, 1, 1), 1)
+        #self.assertRaises(Exception, Hc, (1, 1, 1))
+
+    #def test_Ts(self):
+        #self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
+        #self.assertEqual(Ts_analysis(0, 0, 0,0,),  0)
+        #self.assertEqual(Ts_analysis(0, 1, 0,0,),  1)
+
+    #def test_gst(self):
+        ## to finish
+        #with GroundSurfaceTemperature(
+                #self.snow_path,
+                #self.temp_path,
+                #0.16,
+                #0.83,
+                #self.output_path, ) as gst:
+            #gst.compute()
+            #self.assertEqual(gst.data[0][0], 1)
+            #self.assertEqual(os.path.exists(self.output_path), True)
 
 if __name__ == '__main__':
     unittest.main()

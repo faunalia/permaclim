@@ -38,6 +38,7 @@ import sys
 import gdal
 from gdalconst import *
 import numpy
+import numpy.ma as ma
 
 import calendar
 
@@ -100,18 +101,32 @@ class Mean:
     def _saveMean(self, band_number, mean):
         # create the output image
         bandOut = self.imageOut.GetRasterBand(band_number)
-        bandOut.SetNoDataValue(-99)
+        bandOut.SetNoDataValue(-3.4e+38)
+        bandOut.SetStatistics(
+                  self.min,
+                  self.max,
+                  numpy.mean([self.max, self.min]),
+                  self.std)
         bandOut.WriteArray(mean, 0, 0)
         bandOut.FlushCache()
 
     def compute(self, band_numbers, band_out=1):
-
+        #
         bandsIn = [self.imageIn.GetRasterBand(n) for n in band_numbers]
+        minimum = min([band.GetMinimum() for band in bandsIn])
         datas = [band.ReadAsArray(0, 0, self.cols, self.rows) for band in bandsIn]
 
         t_mean = sum(datas)/len(datas)
-        mask = numpy.greater(t_mean, -numpy.Inf)
-        self.mean = numpy.choose(mask, (-99, t_mean))
+
+        # fix no data values
+        mask = numpy.greater_equal(t_mean, minimum)
+        self.mean = numpy.choose(mask, (-3.4e+38, t_mean))
+
+        # stats
+        masked_mean = ma.masked_less_equal(self.mean, -3.4e+38)
+        self.min = float(masked_mean.min())
+        self.max = float(masked_mean.max())
+        self.std = numpy.std(masked_mean)
 
         self._saveMean(band_out, self.mean)
 
