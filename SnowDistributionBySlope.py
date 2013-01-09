@@ -64,9 +64,9 @@ class HnBySlope:
         self.slope = gdal.Open(slope_path)
         self.hn = gdal.Open(hn_path)
 
-        self.rows = self.slope.RasterYSize
-        self.cols = self.slope.RasterXSize
-        self.data_type = self.slope.GetRasterBand(1).DataType
+        self.rows = min(self.slope.RasterYSize, self.hn.RasterYSize)
+        self.cols = min(self.slope.RasterXSize, self.hn.RasterXSize)
+        self.data_type = self.hn.GetRasterBand(1).DataType
 
         driver = self.slope.GetDriver()
         self.imageOut = driver.Create(
