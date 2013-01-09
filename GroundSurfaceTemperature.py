@@ -136,14 +136,14 @@ class GroundSurfaceTemperatureAlgorithm(GeoAlgorithm):
 
         self.addParameter(ParameterRaster(
                             GroundSurfaceTemperatureAlgorithm.Hn,
-                            "Snow heigth"))
+                            "Snow heigth (m)"))
         self.addParameter(ParameterRaster(
                             GroundSurfaceTemperatureAlgorithm.Ta,
-                            "Air temperature"))
+                            u"Air temperature (°C)"))
         self.addParameter(ParameterNumber(
                             GroundSurfaceTemperatureAlgorithm.K,
-                            "Thermal conductivity of the snow",
-                            default=0.3))
+                            u"Thermal conductivity of the snow (W m^-1 °C^-1)",
+                            default=0.16))
         self.addParameter(ParameterNumber(
                               GroundSurfaceTemperatureAlgorithm.Qs,
                               "Sensible heat flux",
