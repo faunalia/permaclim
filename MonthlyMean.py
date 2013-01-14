@@ -87,9 +87,11 @@ class Mean:
         gdal.AllRegister()
 
         self.imageIn = gdal.Open(input_path)
+
         self.rows = self.imageIn.RasterYSize
         self.cols = self.imageIn.RasterXSize
         self.data_type = self.imageIn.GetRasterBand(1).DataType
+
         driver = self.imageIn.GetDriver()
         self.imageOut = driver.Create(
                                 output_path,
