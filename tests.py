@@ -8,6 +8,7 @@ import numpy
 
 from MonthlyMean import Mean
 from GroundSurfaceTemperature import GroundSurfaceTemperature, Hc, Ts_analysis
+from SnowDistributionBySlope import HnBySlope, SAF
 
 """
 To run tests:
@@ -77,38 +78,79 @@ class TestMonthlyMean(unittest.TestCase):
             self.assertEqual(mm2.std, 0)
 
 
-#class TestGroundSurfaceTemperature(unittest.TestCase):
+class TestSnowDistributionBySlope(unittest.TestCase):
 
-    #def setUp(self):
+    def setUp(self):
 
-        #self.snow_path = tempfile.mkstemp()[1]
-        #prepare_input(self.snow_path, [(1, 0),])
+        self.flat_slope_path = tempfile.mkstemp()[1]
+        prepare_input(self.flat_slope_path, [(1, 0),])
 
-        #self.temp_path = tempfile.mkstemp()[1]
-        #prepare_input(self.temp_path, [(1, 1),])
+        self.lean_slope_path = tempfile.mkstemp()[1]
+        prepare_input(self.lean_slope_path, [(1, 30),])
 
-        #self.output_path = tempfile.mkstemp()[1]
+        self.h_lean_slope_path = tempfile.mkstemp()[1]       # high lean
+        prepare_input(self.h_lean_slope_path, [(1, 60),])
 
-    #def test_Hc(self):
-        #self.assertEqual(Hc(-1, 1, 1), 1)
-        #self.assertRaises(Exception, Hc, (1, 1, 1))
+        self.hn_path = tempfile.mkstemp()[1]
+        prepare_input(self.hn_path, [(1, 10),])
 
-    #def test_Ts(self):
-        #self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
-        #self.assertEqual(Ts_analysis(0, 0, 0,0,),  0)
-        #self.assertEqual(Ts_analysis(0, 1, 0,0,),  1)
+        self.output_path = tempfile.mkstemp()[1]
 
-    #def test_gst(self):
-        ## to finish
-        #with GroundSurfaceTemperature(
-                #self.snow_path,
-                #self.temp_path,
-                #0.16,
-                #0.83,
-                #self.output_path, ) as gst:
-            #gst.compute()
-            #self.assertEqual(gst.data[0][0], 1)
-            #self.assertEqual(os.path.exists(self.output_path), True)
+    def test_SAF(self):
+        self.assertEqual(SAF(-1), 0)
+        self.assertAlmostEqual(SAF(0), 0.8)
+
+        self.assertAlmostEqual(SAF(15), 1, 1)    # 0 < x <= 18
+        self.assertAlmostEqual(SAF(30), 0.66, 1) # 18 < x <= 41
+        self.assertAlmostEqual(SAF(50), 0.22, 1)  # 41 < x <= 60
+        self.assertEqual(SAF(100), 0)            # x > 60
+
+    def test_Slope(self):
+        with HnBySlope(self.flat_slope_path, self.hn_path, self.output_path) as Hn:
+            Hn.compute()
+            self.assertEqual(Hn.data[0][0], 8)
+
+        with HnBySlope(self.lean_slope_path, self.hn_path, self.output_path) as Hn:
+            Hn.compute()
+            self.assertAlmostEqual(Hn.data[0][0], 6.66, 1)
+
+        with HnBySlope(self.h_lean_slope_path, self.hn_path, self.output_path) as Hn:
+            Hn.compute()
+            self.assertAlmostEqual(Hn.data[0][0], 1.8, 1)
+
+
+class TestGroundSurfaceTemperature(unittest.TestCase):
+
+    def setUp(self):
+
+        self.snow_path = tempfile.mkstemp()[1]
+        prepare_input(self.snow_path, [(1, 0),])
+
+        self.temp_path = tempfile.mkstemp()[1]
+        prepare_input(self.temp_path, [(1, 1),])
+
+        self.output_path = tempfile.mkstemp()[1]
+
+    def test_Hc(self):
+        self.assertEqual(Hc(-1, 1, 1), 1)
+        self.assertRaises(Exception, Hc, (1, 1, 1))
+
+    def test_Ts(self):
+        self.assertEqual(Ts_analysis(0,-1, 0,0,), -1)
+        self.assertEqual(Ts_analysis(0, 0, 0,0,),  0)
+        self.assertEqual(Ts_analysis(0, 1, 0,0,),  1)
+
+    def test_gst(self):
+        # to finish
+        with GroundSurfaceTemperature(
+                self.snow_path,
+                self.temp_path,
+                0.16,
+                0.83,
+                self.output_path, ) as gst:
+            gst.compute()
+            self.assertEqual(gst.data[0][0], 1)
+            self.assertEqual(os.path.exists(self.output_path), True)
 
 if __name__ == '__main__':
     unittest.main()
