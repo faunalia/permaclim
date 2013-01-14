@@ -39,6 +39,7 @@ import gdal
 from gdalconst import *
 import numpy
 
+from GroundSurfaceTemperature import stats
 
 def SAF(x):
     if x < 0:
@@ -48,7 +49,8 @@ def SAF(x):
     elif x <= 41:
         saf = -0.0006 * (x*x) + 0.0021 * x + 1.1435
     elif x <= 60:
-        saf = 0.00004 * (x*x) - 0.00109 * x + 0.6803
+        #saf = 0.00004 * (x*x) - 0.00109 * x + 0.6803
+        saf = 2.00000000e-04 * (x*x) - 2.60000000e-02 * x +   1.02000000e+00
     else:
         saf = 0
     return saf
@@ -82,12 +84,12 @@ class HnBySlope:
         slope_data = self.slope.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
         hn_data = self.hn.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
 
-        saf_coeff = SAF_ARRAY(slope_data)
-        self.data = numpy.multiply(hn_data, slope_data)
+        saf_coeff = SAF_ARRAY(slope_data).astype(numpy.float)
+        data = numpy.multiply(hn_data, saf_coeff)
 
         # remove invalid areas
-        mask = numpy.greater(self.data, -numpy.Inf)
-        self.data = numpy.choose(mask, (-99, self.data))
+        mask = numpy.greater_equal(data, 0)
+        self.data = numpy.choose(mask, (-3.4e+38, data))
 
     def __enter__(self):
         return  self
@@ -97,7 +99,8 @@ class HnBySlope:
         if self.data is not None:
             # create the output image
             bandOut = self.imageOut.GetRasterBand(1)
-            bandOut.SetNoDataValue(-99)
+            bandOut.SetNoDataValue(-3.4e+38)
+            stats(self.data, bandOut)
             bandOut.WriteArray(self.data, 0, 0)
             bandOut.FlushCache()
 

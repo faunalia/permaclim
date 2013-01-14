@@ -37,7 +37,10 @@ from sextante.parameters.ParameterRaster import ParameterRaster
 import sys
 import gdal
 from gdalconst import *
+
 import numpy
+import numpy.ma as ma
+
 
 def Hc(Ta, K, Qs):
     # Snow depth Critical
@@ -59,6 +62,19 @@ def Ts_analysis(Hn,Ta,K,Qs):
           return 0
 
 Ts_ARRAY = numpy.frompyfunc(Ts_analysis, 4, 1)
+
+
+def stats(data, bandOut):
+    # stats
+    masked_data = ma.masked_less_equal(data, -3.4e+38)
+    data_min = float(masked_data.min())
+    data_max = float(masked_data.max())
+    data_std = numpy.std(masked_data)
+    bandOut.SetStatistics(
+                data_min,
+                data_max,
+                numpy.mean([data_max, data_min]),
+                data_std)
 
 
 class GroundSurfaceTemperature:
@@ -92,7 +108,7 @@ class GroundSurfaceTemperature:
         Hn_data = self.Hn.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
         Ta_data = self.Ta.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
 
-        data = Ts_ARRAY(Hn_data, Ta_data, self.K, self.Qs)
+        data = Ts_ARRAY(Hn_data, Ta_data, self.K, self.Qs).astype(numpy.float)
 
         # remove invalid points
         mask = numpy.greater(Hn_data, -3.4e+38)
@@ -107,6 +123,7 @@ class GroundSurfaceTemperature:
             # create the output image
             bandOut = self.imageOut.GetRasterBand(1)
             bandOut.SetNoDataValue(-3.4e+38)
+            stats(self.data, bandOut)
             bandOut.WriteArray(self.data, 0, 0)
             bandOut.FlushCache()
 
