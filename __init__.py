@@ -30,7 +30,7 @@ def authorName(): # for compatibility only
     return author()
 
 def email():
-    return "riccardo@reflab.it"
+    return "riccardo@reflab.com"
 
 def version():
     return "0.1"
