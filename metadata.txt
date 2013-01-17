@@ -1,0 +1,50 @@
+#***************************************************************************
+#metadata.txt
+#---------------------
+#Date : January 2012
+#Copyright : (C) 2012 Riccardo Lemmi
+#Email : riccardo at reflab.com
+#***************************************************************************
+#* *
+#* This program is free software; you can redistribute it and/or modify *
+#* it under the terms of the GNU General Public License as published by *
+#* the Free Software Foundation; either version 2 of the License, or *
+#* (at your option) any later version. *
+#* *
+#***************************************************************************
+#__author__ = 'Riccardo Lemmi'
+#__date__ = 'January 2013'
+#__copyright__ = '(C) 2013, Riccardo Lemmi'
+## This will get replaced with a git SHA1 when you do a git archive
+#__revision__ = '$Format:%H$'
+
+; the next section is mandatory
+[general]
+name=SEXTANTE Permaclim provider
+description=Expose Permaclim algorithms to SEXTANTE.
+
+version=0.1
+qgisMinimumVersion=1.0
+
+category=Plugin
+
+author=Riccardo Lemmi (for Faunalia)
+email=riccardo@reflab.com
+
+; end of mandatory metadata
+
+; start of optional metadata
+
+changelog=
+
+; tags are in comma separated value format, spaces are allowed
+tags=sextante, permaclim
+
+homepage=http://www.faunalia.com/
+tracker=http://hub.qgis.org/projects/permaclim
+repository=https://github.com/faunalia/permaclim
+
+; path to a icon within the plugin folder
+icon=logo.png
+
+experimental=True
