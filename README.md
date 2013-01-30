@@ -52,3 +52,10 @@ Testing
         $ export PYTHONPATH=<home>/.qgis/python/plugins:/usr/share/qgis/python/plugins
         $ cd <home>/.qgis/python/plugins/permaclim
         $ python tests.py
+
+
+Credits
+-------
+
+  Developed for ARPA Piemonte (Dipartimento Tematico Geologia e Dissesto)
+  within the project PERMANET.
