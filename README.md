@@ -3,8 +3,11 @@ Introduction
 
   The package add the following algorithms to sexante:
 
+  - Band mean: given a tiff with the weekly values (no limit on bands) returns
+    a layer with the mean of specified bands.
+
   - Monthly mean: given a tiff with the weekly values (52 bands) returns
-    a layer with the mean of specified month.
+    a layer with the mean of specified month in the year.
 
   - Snow height by slope: given the snow height and a slope layer returns
     a layer with the snow weighted with the SAF function.

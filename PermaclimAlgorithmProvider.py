@@ -28,6 +28,7 @@ from PyQt4 import QtGui
 import os
 
 #
+from BandMean import BandMean
 from MonthlyMean import MonthlyMean
 from SnowDistributionBySlope import SnowDistributionBySlope
 from GroundSurfaceTemperature import GroundSurfaceTemperatureAlgorithm
@@ -37,6 +38,7 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
     def __init__(self):
         AlgorithmProvider.__init__(self)
         self.alglist = [
+            BandMean(),
             MonthlyMean(),
             SnowDistributionBySlope(),
             GroundSurfaceTemperatureAlgorithm(),
