@@ -28,9 +28,11 @@ Install
 
         $ git clone git://github.com/faunalia/permaclim.git <home>/.qgis/python/plugins/
 
-  - activate the plugin from the qgis interface
+  - install numpy and gdal python libraries.
 
-  - the plugin requires numpy and gdal python libraries.
+  - enable sexante plugin from the qgis interface
+
+  - enable permaclim plugin from the qgis interface
 
 
 Models
