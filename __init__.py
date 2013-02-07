@@ -33,7 +33,7 @@ def email():
     return "riccardo@reflab.com"
 
 def version():
-    return "0.1"
+    return "0.2"
 
 def icon():
     return "icon.png"
