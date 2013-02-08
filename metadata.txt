@@ -23,7 +23,7 @@
 name=SEXTANTE Permaclim provider
 description=Expose Permaclim algorithms to SEXTANTE.
 
-version=0.1
+version=0.2
 qgisMinimumVersion=1.0
 
 category=Plugin
