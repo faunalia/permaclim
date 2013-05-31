@@ -32,6 +32,7 @@ from BandMean import BandMean
 from MonthlyMean import MonthlyMean
 from SnowDistributionBySlope import SnowDistributionBySlope
 from GroundSurfaceTemperature import GroundSurfaceTemperatureAlgorithm
+from GroundSurfaceTemperatureTime import GroundSurfaceTemperatureTimeAlgorithm
 
 class PermaclimAlgorithmProvider(AlgorithmProvider):
 
@@ -42,6 +43,7 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
             MonthlyMean(),
             SnowDistributionBySlope(),
             GroundSurfaceTemperatureAlgorithm(),
+            GroundSurfaceTemperatureTimeAlgorithm(),
         ]
 
     def initializeSettings(self):
