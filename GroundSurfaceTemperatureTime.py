@@ -171,7 +171,7 @@ class GroundSurfaceTemperatureTimeAlgorithm(GeoAlgorithm):
                             GroundSurfaceTemperatureTimeAlgorithm.Qs,
                             "Sensible heat flux",
                             default=0.86))
-        self.addParameter(OutputRaster(
+        self.addOutput(OutputRaster(
                             GroundSurfaceTemperatureTimeAlgorithm.Ts,
                             "Surface Temperature"))
 
