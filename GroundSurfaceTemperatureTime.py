@@ -25,16 +25,17 @@ __copyright__ = '(C) 2013, Rocco Pispico'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from PyQt4 import QtGui
-from sextante.core.GeoAlgorithm import GeoAlgorithm
-from sextante.outputs.OutputRaster import OutputRaster
 import os
-from sextante.gdal.GdalUtils import GdalUtils
-from sextante.core.SextanteUtils import SextanteUtils
 
-from sextante.parameters.ParameterRange import ParameterRange
-from sextante.parameters.ParameterNumber import ParameterNumber
-from sextante.parameters.ParameterRaster import ParameterRaster
+from PyQt4 import QtGui
+from processing.core.GeoAlgorithm import GeoAlgorithm
+
+from processing.outputs.OutputRaster import OutputRaster
+from processing.gdal.GdalUtils import GdalUtils
+
+from processing.parameters.ParameterRange import ParameterRange
+from processing.parameters.ParameterNumber import ParameterNumber
+from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
 import gdal
@@ -85,8 +86,8 @@ class GroundSurfaceTemperatureTime:
     def __init__(self, Hn_path, Ta_path, K, Qs, Ts_path):
         gdal.AllRegister()
 
-        self.Hn = gdal.Open(Hn_path)
-        self.Ta = gdal.Open(Ta_path)
+        self.Hn = gdal.Open(str(Hn_path))
+        self.Ta = gdal.Open(str(Ta_path))
         self.K = K
         self.Qs = Qs
 
@@ -99,7 +100,7 @@ class GroundSurfaceTemperatureTime:
 
         driver = self.Hn.GetDriver()
         self.imageOut = driver.Create(
-                                Ts_path,
+                                str(Ts_path),
                                 self.cols,
                                 self.rows,
                                 1,               # Image Bands

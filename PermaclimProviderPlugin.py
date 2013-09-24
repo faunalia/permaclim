@@ -26,15 +26,16 @@ __copyright__ = '(C) 2013, Riccardo Lemmi'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
+import os, sys, shutil
+import inspect
+
 from PyQt4 import QtGui
 from PyQt4.QtCore import *
 
 from qgis.core import *
-import os, sys, shutil
-import inspect
 
-from sextante.core.Sextante import Sextante
-from sextante.modeler.ModelerUtils import ModelerUtils
+from processing.core.Processing	import Processing
+from processing.modeler.ModelerUtils import ModelerUtils
 
 from permaclim import version
 from permaclim.PermaclimAlgorithmProvider import PermaclimAlgorithmProvider
@@ -45,13 +46,13 @@ if cmd_folder not in sys.path:
     sys.path.insert(0, cmd_folder)
 
 
-class SextantePermaclimProviderPlugin:
+class PermaclimProviderPlugin:
 
     def __init__(self):
         self.provider = PermaclimAlgorithmProvider()
 
         settings = QSettings()
-        version_settings = settings.value( "/version", '').toString()
+        version_settings = settings.value( "/version", '')
         current_version = version()
 
         if version_settings != current_version:
@@ -68,7 +69,7 @@ class SextantePermaclimProviderPlugin:
                 shutil.copy(file_src_path, file_dst_path)
 
     def initGui(self):
-        Sextante.addProvider(self.provider)
+        Processing.addProvider(self.provider)
 
     def unload(self):
-        Sextante.removeProvider(self.provider)
+        Processing.removeProvider(self.provider)

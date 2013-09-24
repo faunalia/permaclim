@@ -24,15 +24,14 @@ __copyright__ = '(C) 2012, Riccardo Lemmi'
 __revision__ = '$Format:%H$'
 
 from PyQt4 import QtGui
-from sextante.core.GeoAlgorithm import GeoAlgorithm
-from sextante.outputs.OutputRaster import OutputRaster
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from processing.outputs.OutputRaster import OutputRaster
 import os
-from sextante.gdal.GdalUtils import GdalUtils
-from sextante.core.SextanteUtils import SextanteUtils
+from processing.gdal.GdalUtils import GdalUtils
 
-from sextante.parameters.ParameterRange import ParameterRange
-from sextante.parameters.ParameterNumber import ParameterNumber
-from sextante.parameters.ParameterRaster import ParameterRaster
+from processing.parameters.ParameterRange import ParameterRange
+from processing.parameters.ParameterNumber import ParameterNumber
+from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
 import gdal
@@ -62,16 +61,17 @@ class HnBySlope:
     def __init__(self, slope_path, hn_path, output_path):
         gdal.AllRegister()
 
-        self.slope = gdal.Open(slope_path)
-        self.hn = gdal.Open(hn_path)
+        self.slope = gdal.Open(str(slope_path))
+        self.hn = gdal.Open(str(hn_path))
 
         self.rows = min(self.slope.RasterYSize, self.hn.RasterYSize)
         self.cols = min(self.slope.RasterXSize, self.hn.RasterXSize)
         self.data_type = self.hn.GetRasterBand(1).DataType
+        #import pdb; pdb.set_trace()
 
         driver = self.slope.GetDriver()
         self.imageOut = driver.Create(
-                                output_path,
+                                str(output_path),
                                 self.cols,
                                 self.rows,
                                 1,

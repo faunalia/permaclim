@@ -23,12 +23,12 @@ __copyright__ = '(C) 2013, Riccardo Lemmi'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from sextante.core.GeoAlgorithm import GeoAlgorithm
-from sextante.outputs.OutputRaster import OutputRaster
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from processing.outputs.OutputRaster import OutputRaster
 
-from sextante.parameters.ParameterRange import ParameterRange
-from sextante.parameters.ParameterNumber import ParameterNumber
-from sextante.parameters.ParameterRaster import ParameterRaster
+from processing.parameters.ParameterRange import ParameterRange
+from processing.parameters.ParameterNumber import ParameterNumber
+from processing.parameters.ParameterRaster import ParameterRaster
 
 from MonthlyMean import Mean
 

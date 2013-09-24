@@ -20,11 +20,11 @@
 
 ; the next section is mandatory
 [general]
-name=SEXTANTE Permaclim provider
-description=Expose Permaclim algorithms to SEXTANTE.
+name=ProcessingPermaclim provider
+description=Expose Permaclim algorithms to Processing.
 
 version=0.2
-qgisMinimumVersion=1.0
+qgisMinimumVersion=2.0
 
 category=Plugin
 
@@ -38,7 +38,7 @@ email=riccardo@reflab.com
 changelog=
 
 ; tags are in comma separated value format, spaces are allowed
-tags=sextante, permaclim
+tags=processing, permaclim
 
 homepage=http://www.faunalia.com/
 tracker=http://hub.qgis.org/projects/permaclim

@@ -18,10 +18,10 @@
 """
 
 def name():
-    return "SEXTANTE Permaclim provider"
+    return "Processing Permaclim provider"
 
 def description():
-    return "Expose Permaclim algorithms to SEXTANTE."
+    return "Expose Permaclim algorithms to Processing."
 
 def author():
     return "Riccardo Lemmi (for Faunalia)"
@@ -39,8 +39,8 @@ def icon():
     return "icon.png"
 
 def qgisMinimumVersion():
-    return "1.0"
+    return "2.0"
 
 def classFactory(iface):
-    from permaclim.SextantePermaclimProviderPlugin import SextantePermaclimProviderPlugin
-    return SextantePermaclimProviderPlugin()
+    from permaclim.PermaclimProviderPlugin import PermaclimProviderPlugin
+    return PermaclimProviderPlugin()

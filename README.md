@@ -1,7 +1,7 @@
 Introduction
 ------------
 
-  The package add the following algorithms to sexante:
+  The package add the following algorithms to 'processing' (was 'sexante'):
 
   - Band mean: given a tiff with the weekly values (no limit on bands) returns
     a layer with the mean of specified bands.
@@ -15,24 +15,25 @@ Introduction
   - Ground surface temperature: given the snow heigth, air temperature,
     Qs and K will return the ground surface temperature as in the article
        "PERMACLIM: a model for the distribution of mountain permafrost,
-          based on climatic observations"  by Mauro Guglielmin, Barbara Aldighieri, Bruno Testa
+          based on climatic observations"  
+        by Mauro Guglielmin, Barbara Aldighieri, Bruno Testa
 
 
 Install
 -------
 
   Permaclim is installed as standard qgis plugin. The algoritms will be
-  available in sextante.
+  available in 'processing'.
 
-  - extract the repository in <home>/.qgis/python/plugins:
+  - extract the repository in <home>/.qgis2/python/plugins:
 
         $ git clone git://github.com/faunalia/permaclim.git <home>/.qgis/python/plugins/
 
   - install numpy and gdal python libraries.
 
-  - enable sexante plugin from the qgis interface
+  - enable 'processing' plugin from the qgis interface
 
-  - enable permaclim plugin from the qgis interface
+  - enable 'permaclim' plugin from the qgis interface
 
 
 Models
@@ -40,13 +41,13 @@ Models
 
   With the plugin are provides two models:
 
-  - "Analysys 1" computes the ground surface temperature based on the snow
-    heigth
+  - "Analysys 1" computes the ground surface temperature based on the 
+	snow heigth
 
-  - "Analysys 2" computes the ground surface temperature based on the snow
-    heigth estimated through the slope.
+  - "Analysys 2" computes the ground surface temperature based on the 
+	snow heigth estimated through the slope.
 
-  The models must be copied in <home>/.qgis/sextante/models/ directory.
+  The models must be copied in <home>/.qgis2/processing/models/ directory.
 
 
 Testing
@@ -54,8 +55,8 @@ Testing
 
   To run the unit tests:
 
-        $ export PYTHONPATH=<home>/.qgis/python/plugins:/usr/share/qgis/python/plugins
-        $ cd <home>/.qgis/python/plugins/permaclim
+        $ export PYTHONPATH=<home>/.qgis2/python/plugins:/usr/share/qgis/python/plugins
+        $ cd <home>/.qgis2/python/plugins/permaclim
         $ python tests.py
 
 

@@ -8,14 +8,19 @@ import gdal
 from gdalconst import *
 import numpy
 
+# prepare the Qt4 enviroment to run tests
+from PyQt4.QtGui import QApplication
+app = QApplication([])
+#
+
 from MonthlyMean import Mean
 from GroundSurfaceTemperature import GroundSurfaceTemperature, Hc, Ts_analysis
 from SnowDistributionBySlope import HnBySlope, SAF
 
 """
 To run tests:
-  $ cd ~/.qgis/python/plugins/permaclim
-  $ export PYTHONPATH=~/.qgis/python/plugins:/usr/share/qgis/python/plugins
+  $ cd ~/.qgis2/python/plugins/permaclim
+  $ export PYTHONPATH=~/.qgis2/python/plugins:/usr/share/qgis/python/plugins
   $ python tests.py
 
 """
@@ -100,21 +105,21 @@ class TestSnowDistributionBySlope(unittest.TestCase):
 
     def test_SAF(self):
         self.assertEqual(SAF(-1), 0)
-        self.assertAlmostEqual(SAF(0), 0.8)
+        self.assertAlmostEqual(SAF(0), 1.0)       # was 0.8
 
-        self.assertAlmostEqual(SAF(15), 1, 1)    # 0 < x <= 18
-        self.assertAlmostEqual(SAF(30), 0.66, 1) # 18 < x <= 41
+        self.assertAlmostEqual(SAF(15), 1, 1)     # 0 < x <= 18
+        self.assertAlmostEqual(SAF(30), 0.66, 1)  # 18 < x <= 41
         self.assertAlmostEqual(SAF(50), 0.22, 1)  # 41 < x <= 60
-        self.assertEqual(SAF(100), 0)            # x > 60
+        self.assertEqual(SAF(100), 0)             # x > 60
 
     def test_Slope(self):
         with HnBySlope(self.flat_slope_path, self.hn_path, self.output_path) as Hn:
             Hn.compute()
-            self.assertEqual(Hn.data[0][0], 8)
+            self.assertEqual(Hn.data[0][0], 10)     # was 8
 
         with HnBySlope(self.lean_slope_path, self.hn_path, self.output_path) as Hn:
             Hn.compute()
-            self.assertAlmostEqual(Hn.data[0][0], 6.66, 1)
+            self.assertAlmostEqual(Hn.data[0][0], 7.0, 1)   # was 6.66
 
         with HnBySlope(self.h_lean_slope_path, self.hn_path, self.output_path) as Hn:
             Hn.compute()

@@ -23,16 +23,16 @@ __copyright__ = '(C) 2012, Riccardo Lemmi'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from PyQt4 import QtGui
-from sextante.core.GeoAlgorithm import GeoAlgorithm
-from sextante.outputs.OutputRaster import OutputRaster
 import os
-from sextante.gdal.GdalUtils import GdalUtils
-from sextante.core.SextanteUtils import SextanteUtils
+from PyQt4 import QtGui
 
-from sextante.parameters.ParameterRange import ParameterRange
-from sextante.parameters.ParameterNumber import ParameterNumber
-from sextante.parameters.ParameterRaster import ParameterRaster
+from processing.core.GeoAlgorithm import GeoAlgorithm
+from processing.outputs.OutputRaster import OutputRaster
+from processing.gdal.GdalUtils import GdalUtils
+
+from processing.parameters.ParameterRange import ParameterRange
+from processing.parameters.ParameterNumber import ParameterNumber
+from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
 import gdal
@@ -86,7 +86,7 @@ class Mean:
     def __init__(self, input_path, output_path, number_bandsOut=1):
         gdal.AllRegister()
 
-        self.imageIn = gdal.Open(input_path)
+        self.imageIn = gdal.Open(str(input_path))
 
         self.rows = self.imageIn.RasterYSize
         self.cols = self.imageIn.RasterXSize
@@ -94,7 +94,7 @@ class Mean:
 
         driver = self.imageIn.GetDriver()
         self.imageOut = driver.Create(
-                                output_path,
+                                str(output_path),
                                 self.cols,
                                 self.rows,
                                 number_bandsOut,

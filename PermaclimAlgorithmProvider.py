@@ -22,10 +22,11 @@ __copyright__ = '(C) 2012, Riccardo Lemmi'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
-from sextante.core.AlgorithmProvider import AlgorithmProvider
-from sextante.algs.AddTableField import AddTableField
-from PyQt4 import QtGui
 import os
+from PyQt4 import QtGui
+
+from processing.core.AlgorithmProvider import AlgorithmProvider
+from processing.algs.AddTableField import AddTableField
 
 #
 from BandMean import BandMean
