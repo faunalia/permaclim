@@ -23,7 +23,7 @@
 name=ProcessingPermaclim provider
 description=Expose Permaclim algorithms to Processing.
 
-version=0.2
+version=0.3
 qgisMinimumVersion=2.0
 
 category=Plugin

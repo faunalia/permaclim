@@ -35,8 +35,7 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
-import gdal
-from gdalconst import *
+from osgeo import gdal
 
 import numpy
 import numpy.ma as ma

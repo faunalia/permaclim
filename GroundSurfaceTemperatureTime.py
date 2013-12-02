@@ -7,8 +7,8 @@
     Date                 : May 2013
     Copyright            : (C) 2013 by Rocco Pispico
     Email                : rocco dot pispico at arpa dot piemonte dot it
-	Note                 : based on GroundSurfaceTemperature.py by
-	                       Riccardo Lemmi
+    Note                 : based on GroundSurfaceTemperature.py by
+                           Riccardo Lemmi
 ***************************************************************************
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -38,8 +38,7 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
-import gdal
-from gdalconst import *
+from osgeo import gdal
 
 import numpy
 import numpy.ma as ma

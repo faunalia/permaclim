@@ -34,8 +34,8 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
-import gdal
-from gdalconst import *
+
+from osgeo import gdal
 import numpy
 
 from GroundSurfaceTemperature import stats
@@ -67,7 +67,6 @@ class HnBySlope:
         self.rows = min(self.slope.RasterYSize, self.hn.RasterYSize)
         self.cols = min(self.slope.RasterXSize, self.hn.RasterXSize)
         self.data_type = self.hn.GetRasterBand(1).DataType
-        #import pdb; pdb.set_trace()
 
         driver = self.slope.GetDriver()
         self.imageOut = driver.Create(

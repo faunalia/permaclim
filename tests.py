@@ -4,8 +4,7 @@ import os
 import unittest
 import tempfile
 
-import gdal
-from gdalconst import *
+from osgeo import gdal
 import numpy
 
 # prepare the Qt4 enviroment to run tests

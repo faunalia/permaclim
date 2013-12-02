@@ -50,7 +50,7 @@ class PermaclimProviderPlugin:
 
     def __init__(self):
         self.provider = PermaclimAlgorithmProvider()
-
+        return
         settings = QSettings()
         version_settings = settings.value( "/version", '')
         current_version = version()
@@ -70,6 +70,7 @@ class PermaclimProviderPlugin:
 
     def initGui(self):
         Processing.addProvider(self.provider)
-
+        Processing.updateAlgsList()  # until a better way is found
+        
     def unload(self):
         Processing.removeProvider(self.provider)

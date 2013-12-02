@@ -33,7 +33,7 @@ def email():
     return "riccardo@reflab.com"
 
 def version():
-    return "0.2"
+    return "0.3"
 
 def icon():
     return "icon.png"
@@ -44,3 +44,4 @@ def qgisMinimumVersion():
 def classFactory(iface):
     from permaclim.PermaclimProviderPlugin import PermaclimProviderPlugin
     return PermaclimProviderPlugin()
+    

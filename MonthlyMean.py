@@ -35,8 +35,8 @@ from processing.parameters.ParameterNumber import ParameterNumber
 from processing.parameters.ParameterRaster import ParameterRaster
 
 import sys
-import gdal
-from gdalconst import *
+from osgeo import gdal
+
 import numpy
 import numpy.ma as ma
 
@@ -154,7 +154,7 @@ class MonthlyMean(GeoAlgorithm):
 
     def defineCharacteristics(self):
         self.name = "Monthly Mean"
-        self.group = "[permaclim]"
+        self.group = "[permaclim] Mix"
         self.addParameter(ParameterRaster(MonthlyMean.INPUT, "Weekly mean layer"))
         self.addParameter(ParameterNumber(MonthlyMean.YEAR, "Year of the layer", default=2001))
         self.addParameter(ParameterNumber(MonthlyMean.MONTH, "Month", 1, 12, 1))

@@ -50,7 +50,6 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
     def initializeSettings(self):
         AlgorithmProvider.initializeSettings(self)
 
-
     def unload(self):
         AlgorithmProvider.unload(self)
 
@@ -61,9 +60,9 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
     def getDescription(self):
         return "Permaclim algorithms"
 
-    #def getIcon(self):
-    #    return QtGui.QIcon(os.path.dirname(__file__) + "/../images/toolbox.png")
-
+    def getIcon(self):
+        return AlgorithmProvider.getIcon(self)
+        
     def _loadAlgorithms(self):
         self.algs = self.alglist
 
