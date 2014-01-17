@@ -44,7 +44,7 @@ import numpy.ma as ma
 def Hc(Ta, K, Qs):
     # Snow depth Critical
     if Ta < 0:
-        return -Ta * (K / Qs)
+        return abs(Ta) * (K / Qs)
     else:
         raise Exception("Positive Ta temperature not expected")
 

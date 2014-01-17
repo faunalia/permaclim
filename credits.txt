@@ -1,0 +1,69 @@
+CREDITS PLUG-IN "PERMACLIM"
+
+IT
+
+Basato sul modello presentato nella pubblicazione:
+
+  Guglielmin M., Aldighieri B. & Testa B. (2003) -
+
+  PERMACLIM: a model for the distribution of mountain permafrost, based on
+    climatic observations, Geomorphology, Volume 51, Issue 4; Pages 245–257
+
+Sviluppo logico e software (in ordine alfabetico):
+
+  N. Colombo (UniTO),
+  R. Lemmi (Faunalia),
+  L. Paro (Arpa Piemonte),
+  R. Pispico (Arpa Piemonte)
+
+Nell'ambito del contratto CIG Z81027113C tra Arpa Piemonte e Faunalia e della
+tesi magistrale interfacoltà in Geografia (curriculum in Geografia Fisica
+e Geomorfologia) presso l'Università degli Studi di Torino dal titolo
+
+  "Relazioni tra ambiente glaciale e periglaciale nel bacino del
+    Lago Sabbione (Formazza, VB)"
+
+    (tesista: N. Colombo; relatori: S. Fratianni, L. Paro, L. Perotti).
+
+Con il patrocinio del Progetto Alpine Space 2007÷2013
+
+  "PermaNet (Permafrost long-term Monitoring Network)",
+
+  www.permanet-alpinespace.eu
+
+Altre info e manuale alla webpage:
+
+  www.arpa.piemonte.it/approfondimenti/temi-ambientali/geologia-e-dissesto/bancadatiged/criosfera-e-permafrost
+
+
+EN
+
+Based on the model PERMACLIM described in the paper:
+
+    Guglielmin M., Aldighieri B. & Testa B. (2003) -
+
+    PERMACLIM: a model for the distribution of mountain permafrost,
+       based on climatic observations, Geomorphology, Volume 51, Issue 4; Pages 245–257
+
+Logical and software development (in alphabetical order):
+
+  N. Colombo (UniTO),
+  R. Lemmi (Faunalia),
+  L. Paro (Arpa Piemonte),
+  R. Pispico (Arpa Piemonte)
+
+In the framework of the contract CIG Z81027113C between Arpa Piemonte and
+Faunalia, and of the graduation thesis on Geography (curriculum in Physical
+Geography and Geomorphology), University of Torino, title
+
+ "Glacial-Periglacial relationships in the Sabbione Lake catchment (Formazza, VB)"
+  (candidate: N. Colombo; tutors: S. Fratianni, L. Paro, L. Perotti).
+
+With the patronage of the Alpine Space 2007÷2013 Project
+
+  "PermaNet (Permafrost long-term Monitoring Network)",
+  www.permanet-alpinespace.eu
+
+Link to the webpage for further information (in Italian) and the user guide:
+
+  www.arpa.piemonte.it/approfondimenti/temi-ambientali/geologia-e-dissesto/bancadatiged/criosfera-e-permafrost

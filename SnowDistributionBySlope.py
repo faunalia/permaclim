@@ -44,6 +44,22 @@ def SAF(x):
     if x < 0:
         saf = 0
     elif x <= 18:
+        saf = -0.001 * (x*x) + 0.0289 * x + 0.8
+    elif x <= 41:
+        saf = -0.0006 * (x*x) + 0.0021 * x + 1.1435
+    elif x <= 60:
+        #saf = 0.00004 * (x*x) - 0.00109 * x + 0.6803
+        saf = 2.00000000e-04 * (x*x) - 2.60000000e-02 * x +   1.02000000e+00
+    else:
+        saf = 0
+    return saf
+
+# Non-discontinuos version of SAF
+"""
+def SAF(x):
+    if x < 0:
+        saf = 0
+    elif x <= 18:
         saf = 1
     elif x <= 41:
         saf = -4.94071146e-04 * (x*x) - 1.28458498e-03 * x + 1.18320158e+00
@@ -52,6 +68,7 @@ def SAF(x):
     else:
         saf = 0
     return saf
+"""
 
 SAF_ARRAY = numpy.frompyfunc(SAF, 1, 1)
 
