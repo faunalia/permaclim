@@ -43,10 +43,10 @@ import numpy.ma as ma
 
 def Hc(Ta, K, Qs):
     # Snow depth Critical
-    if Ta < 0:
-        return abs(Ta) * (K / Qs)
+    if Ta >= 0:
+        return 0.001
     else:
-        raise Exception("Positive Ta temperature not expected")
+        return abs(Ta) * (K / Qs)
 
 def Ts_analysis(Hn,Ta,K,Qs):
   #
@@ -56,12 +56,11 @@ def Ts_analysis(Hn,Ta,K,Qs):
       return 0
   else:
       if Ta < 0:
-          return Ta + (Qs * Hn) / K
+          return Ta + (Qs * Hn / K)
       else:
           return 0
 
 Ts_ARRAY = numpy.frompyfunc(Ts_analysis, 4, 1)
-
 
 def stats(data, bandOut):
     # stats

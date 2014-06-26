@@ -31,7 +31,6 @@ from PyQt4 import QtGui
 from processing.core.GeoAlgorithm import GeoAlgorithm
 
 from processing.outputs.OutputRaster import OutputRaster
-from processing.gdal.GdalUtils import GdalUtils
 
 from processing.parameters.ParameterRange import ParameterRange
 from processing.parameters.ParameterNumber import ParameterNumber
@@ -46,25 +45,28 @@ import numpy.ma as ma
 
 def HcT0(Ta, K, Qs):
     # Snow depth Critical
-    if Ta < 0:
-        return abs(Ta) * (K / Qs)
+    if Ta >= 0:
+        return 0.001
     else:
-        raise Exception("Positive Ta temperature not expected")
+        return abs(Ta) * (K / Qs)
 
-def TsT0_analysis(T0,Hn,Ta,K,Qs):
+def TsT0_analysis(T0, Hn, Ta, K, Qs):
   #
   if Hn == 0:
+      return Ta
+  elif Hn >= HcT0(Ta, K, Qs) and Ta >= 0:
+      return 0
+  elif Hn >= HcT0(Ta, K, Qs) and Ta < 0 and T0 < 0:
       return T0
-  elif Hn >= HcT0(Ta, K, Qs):
+  elif Hn >= HcT0(Ta, K, Qs) and Ta < 0 and T0 > 0:
       return 0
   else:
       if Ta < 0:
-          # return (Ta - Qs / (K * Hn))
-          return (abs(Ta) - (Qs / (K * Hn))) * -1.0
+          return Ta + (Qs * Hn / K)
       else:
           return 0
 
-  Ts_ARRAY = numpy.frompyfunc(Ts_analysis, 4, 1)
+Ts_ARRAY = numpy.frompyfunc(TsT0_analysis, 5, 1)
 
 
 def stats(data, bandOut):
@@ -82,9 +84,10 @@ def stats(data, bandOut):
 
 class GroundSurfaceTemperatureTime:
 
-    def __init__(self, Hn_path, Ta_path, K, Qs, Ts_path):
+    def __init__(self, T0_path, Hn_path, Ta_path, K, Qs, Ts_path):
         gdal.AllRegister()
 
+        self.T0 = gdal.Open(str(T0_path))
         self.Hn = gdal.Open(str(Hn_path))
         self.Ta = gdal.Open(str(Ta_path))
         self.K = K
@@ -108,10 +111,11 @@ class GroundSurfaceTemperatureTime:
 
     def compute(self):
         """  """
+        T0_data = self.T0.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
         Hn_data = self.Hn.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
         Ta_data = self.Ta.GetRasterBand(1).ReadAsArray(0, 0, self.cols, self.rows)
 
-        data = Ts_ARRAY(Hn_data, Ta_data, self.K, self.Qs).astype(numpy.float)
+        data = Ts_ARRAY(T0_data, Hn_data, Ta_data, self.K, self.Qs).astype(numpy.float)
 
         # remove invalid points
         mask = numpy.greater(Hn_data, -3.4e+38)
