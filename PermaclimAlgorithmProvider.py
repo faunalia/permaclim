@@ -26,7 +26,6 @@ import os
 from PyQt4 import QtGui
 
 from processing.core.AlgorithmProvider import AlgorithmProvider
-from processing.algs.AddTableField import AddTableField
 
 #
 from BandMean import BandMean
@@ -62,7 +61,7 @@ class PermaclimAlgorithmProvider(AlgorithmProvider):
 
     def getIcon(self):
         return AlgorithmProvider.getIcon(self)
-        
+
     def _loadAlgorithms(self):
         self.algs = self.alglist
 
