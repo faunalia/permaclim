@@ -27,7 +27,7 @@ from PyQt4 import QtGui
 from processing.core.GeoAlgorithm import GeoAlgorithm
 from processing.outputs.OutputRaster import OutputRaster
 import os
-from processing.gdal.GdalUtils import GdalUtils
+from processing.algs.gdal.GdalUtils import GdalUtils
 
 from processing.parameters.ParameterRange import ParameterRange
 from processing.parameters.ParameterNumber import ParameterNumber
