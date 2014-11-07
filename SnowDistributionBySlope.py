@@ -23,17 +23,18 @@ __copyright__ = '(C) 2012, Riccardo Lemmi'
 # This will get replaced with a git SHA1 when you do a git archive
 __revision__ = '$Format:%H$'
 
+import os
+import sys
+
 from PyQt4 import QtGui
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.outputs.OutputRaster import OutputRaster
-import os
+from processing.core.outputs import OutputRaster
+
 from processing.algs.gdal.GdalUtils import GdalUtils
 
-from processing.parameters.ParameterRange import ParameterRange
-from processing.parameters.ParameterNumber import ParameterNumber
-from processing.parameters.ParameterRaster import ParameterRaster
-
-import sys
+from processing.core.parameters import ParameterRange
+from processing.core.parameters import ParameterNumber
+from processing.core.parameters import ParameterRaster
 
 from osgeo import gdal
 import numpy

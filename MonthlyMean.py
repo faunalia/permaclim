@@ -27,12 +27,12 @@ import os
 from PyQt4 import QtGui
 
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.outputs.OutputRaster import OutputRaster
+from processing.core.outputs import OutputRaster
 from processing.algs.gdal.GdalUtils import GdalUtils
 
-from processing.parameters.ParameterRange import ParameterRange
-from processing.parameters.ParameterNumber import ParameterNumber
-from processing.parameters.ParameterRaster import ParameterRaster
+from processing.core.parameters import ParameterRange
+from processing.core.parameters import ParameterNumber
+from processing.core.parameters import ParameterRaster
 
 import sys
 from osgeo import gdal

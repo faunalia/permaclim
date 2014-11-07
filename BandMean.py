@@ -24,11 +24,11 @@ __copyright__ = '(C) 2013, Riccardo Lemmi'
 __revision__ = '$Format:%H$'
 
 from processing.core.GeoAlgorithm import GeoAlgorithm
-from processing.outputs.OutputRaster import OutputRaster
+from processing.core.outputs import OutputRaster
 
-from processing.parameters.ParameterRange import ParameterRange
-from processing.parameters.ParameterNumber import ParameterNumber
-from processing.parameters.ParameterRaster import ParameterRaster
+from processing.core.parameters import ParameterRange
+from processing.core.parameters import ParameterNumber
+from processing.core.parameters import ParameterRaster
 
 from MonthlyMean import Mean
 
